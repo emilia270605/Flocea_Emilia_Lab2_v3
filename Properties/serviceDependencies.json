@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:Flocea_Emilia_Lab2_v3Context"
+    }
+  }
+}
