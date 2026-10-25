@@ -18,5 +18,6 @@ namespace Flocea_Emilia_Lab2_v3.Models
         public DateTime PublishingDate { get; set; }
         public int? PublisherID { get; set; }
         public Publisher? Publisher { get => publisher; set => publisher = value; }
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }

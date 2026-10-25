@@ -1,4 +1,4 @@
-@page
+@page "/"
 @model Flocea_Emilia_Lab2_v3.Pages.BookPages.IndexModel
 
 @{
@@ -10,31 +10,41 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Author)
+                Author
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Price)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.Book[0].PublishingDate)
+                Price
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Publisher.PublisherName)
-             </th>
+                PublishingDate
+            </th>
+            <th>
+                PublisherName
+            </th>
+            <th>
+                BookCategories
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Book) {
-        <tr>
+@foreach (var item in Model.BookD.Books) {
+     string selectedRow = "";
+     if (item.ID == Model.BookID)
+     {
+         selectedRow = "table-success";
+     }
+        <tr class="@selectedRow">
             <td>
-                @Html.DisplayFor(model => item.Title)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
               @Html.DisplayFor(modelItem => item.Author.LastName) @Html.DisplayFor(modelItem => item.Author.FirstName)  
@@ -48,7 +58,17 @@
             <td>
                  @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
             </td>
-    
+            <td>
+                 @{
+                    if (item.BookCategories != null)
+                    {
+                        foreach (var category in item.BookCategories)
+                        {
+                            @category.Category.ID @: @category.Category.CategoryName <br/>
+                        }
+                    }
+                  }
+            </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

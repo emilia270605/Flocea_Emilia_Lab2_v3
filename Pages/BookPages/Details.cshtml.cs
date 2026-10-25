@@ -8,6 +8,7 @@ namespace Flocea_Emilia_Lab2_v3.Pages.BookPages;
 public class DetailsModel : PageModel
 {
     private readonly Flocea_Emilia_Lab2_v3Context _context;
+
     public DetailsModel(Flocea_Emilia_Lab2_v3Context context)
     {
         _context = context;
@@ -22,7 +23,14 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
-        var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+        // ⭐ Interogarea corectă și unică, cu toate legăturile incluse ⭐
+        var book = await _context.Book
+            .Include(b => b.Publisher)
+            .Include(b => b.Author)
+            .Include(b => b.BookCategories)
+                .ThenInclude(b => b.Category)
+            .FirstOrDefaultAsync(m => m.ID == id);
+
         if (book is null)
         {
             return NotFound();

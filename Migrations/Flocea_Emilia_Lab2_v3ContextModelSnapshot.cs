@@ -75,6 +75,46 @@ namespace Flocea_Emilia_Lab2_v3.Migrations
                     b.ToTable("Book");
                 });
 
+            modelBuilder.Entity("Flocea_Emilia_Lab2_v3.Models.BookCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BookID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("BookCategory");
+                });
+
+            modelBuilder.Entity("Flocea_Emilia_Lab2_v3.Models.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("Flocea_Emilia_Lab2_v3.Models.Publisher", b =>
                 {
                     b.Property<int>("ID")
@@ -107,9 +147,38 @@ namespace Flocea_Emilia_Lab2_v3.Migrations
                     b.Navigation("Publisher");
                 });
 
+            modelBuilder.Entity("Flocea_Emilia_Lab2_v3.Models.BookCategory", b =>
+                {
+                    b.HasOne("Flocea_Emilia_Lab2_v3.Models.Book", "Book")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Flocea_Emilia_Lab2_v3.Models.Category", "Category")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Flocea_Emilia_Lab2_v3.Models.Author", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Flocea_Emilia_Lab2_v3.Models.Book", b =>
+                {
+                    b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Flocea_Emilia_Lab2_v3.Models.Category", b =>
+                {
+                    b.Navigation("BookCategories");
                 });
 
             modelBuilder.Entity("Flocea_Emilia_Lab2_v3.Models.Publisher", b =>

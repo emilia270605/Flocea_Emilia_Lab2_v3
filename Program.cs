@@ -1,3 +1,4 @@
+using Flocea_Emilia_Lab2_v3;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Flocea_Emilia_Lab2_v3Context") ?? throw new InvalidOperationException("Connection string 'Flocea_Emilia_Lab2_v3Context' not found.");
