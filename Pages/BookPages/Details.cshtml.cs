@@ -23,7 +23,7 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
-        // ⭐ Interogarea corectă și unică, cu toate legăturile incluse ⭐
+        
         var book = await _context.Book
             .Include(b => b.Publisher)
             .Include(b => b.Author)
